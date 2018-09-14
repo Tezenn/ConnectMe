@@ -5,6 +5,8 @@ import Map from "./components/Map";
 import Interaction from "./components/Interaction";
 import TopicsDefinition from "./components/topicsDefinition";
 import SignUp from "./components/SignUp";
+import { connect } from "react-redux";
+import { addNewUser } from "./redux/actions";
 
 class App extends Component {
   constructor(props) {
@@ -63,4 +65,15 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  store: state
+});
+
+const mapDispatchToProps = dispatch => ({
+  addNewUser: newUser => dispatch(addNewUser(newUser))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
