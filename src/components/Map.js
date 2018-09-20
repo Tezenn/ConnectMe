@@ -1,10 +1,12 @@
-import React, { Component } from "react";
-import { withScriptjs, withGoogleMap, GoogleMap } from "react-google-maps";
-import MarkerWithInfo from "./MarkerWithInfo";
+import React, { Component } from 'react';
+import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
+import MarkerWithInfo from './MarkerWithInfo';
+import { URL } from '../config';
 
 class UserMap extends Component {
   state = {
-    selectedUser: null
+    selectedUser: null,
+    users: [1, 2, 3, 4]
   };
 
   selectUser = user => {
@@ -15,7 +17,7 @@ class UserMap extends Component {
     const { users } = this.props;
     const { selectedUser } = this.state;
     return (
-      <GoogleMap defaultZoom={8} defaultCenter={{ lat: 45.84, lng: 9.66 }}>
+      <GoogleMap defaultZoom={9} defaultCenter={{ lat: 45.84, lng: 9.66 }}>
         {users.map((user, index) => (
           <MarkerWithInfo
             user={user}
@@ -36,9 +38,9 @@ const ConnectedUserMap = withScriptjs(withGoogleMap(UserMap));
 export default function UserMapWithSettings(props) {
   return (
     <ConnectedUserMap
-      googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+      googleMapURL={URL}
       loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height: `400px`, width: "80vw" }} />}
+      containerElement={<div style={{ height: `400px`, width: '80vw' }} />}
       mapElement={<div style={{ height: `100%` }} />}
       {...props}
     />

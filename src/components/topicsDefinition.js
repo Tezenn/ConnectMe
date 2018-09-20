@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { updateTopics } from "../redux/actions/";
 
 class TopicsDefinition extends Component {
   state = {
@@ -40,9 +43,25 @@ class TopicsDefinition extends Component {
             return <h4 key={el}>{el}</h4>;
           })}
         </div>
+        <Link to={"/Map"}>
+          <button onClick={() => this.props.updateTopics(this.state.topics)}>
+            Next
+          </button>
+        </Link>
       </div>
     );
   }
 }
 
-export default TopicsDefinition;
+const mapStateToProps = state => ({
+  store: state
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateTopics: topics => dispatch(updateTopics(topics))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TopicsDefinition);

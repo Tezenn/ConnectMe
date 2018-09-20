@@ -1,11 +1,14 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import AutocompleteSetting from './placesAutocomplete';
 
 class SignUp extends Component {
   state = {
     newUser: {
-      username: "",
-      location: ""
-    }
+      username: '',
+      location: ''
+    },
+    next: false
   };
 
   handleChange = ev => {
@@ -17,12 +20,32 @@ class SignUp extends Component {
     });
   };
 
+  handleGeo = obj => {
+    console.log(obj);
+    this.setState({
+      newUser: {
+        ...this.state.newUser,
+        location: obj
+      }
+    });
+  };
+
   handleSubmit = ev => {
     ev.preventDefault();
-    console.log(this.state);
+    this.props.addNewUser(this.state.newUser);
+    this.setState({
+      newUser: {
+        username: '',
+        location: ''
+      },
+      next: true
+    });
   };
 
   render() {
+    if (this.state.next) {
+      return <Redirect to="/topicsDefinition" />;
+    }
     return (
       <div className="topicsDiv">
         <h1>Sign Up Page</h1>
@@ -33,14 +56,10 @@ class SignUp extends Component {
             placeholder="username"
             name="username"
             onChange={this.handleChange}
+            value={this.state.newUser.username}
           />
           <h2>Where do you live?</h2>
-          <input
-            type="text"
-            placeholder="location"
-            name="location"
-            onChange={this.handleChange}
-          />
+          <AutocompleteSetting geo={this.handleGeo} />
           <br />
           <input type="submit" value="Sign Up" />
         </form>

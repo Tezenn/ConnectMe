@@ -1,17 +1,26 @@
-const users = (state = [], action) => {
+const users = (
+  state = {
+    users: [],
+    currentUser: {}
+  },
+  action
+) => {
   switch (action.type) {
     case "ADD_NEW_USER":
-      return [
+      return {
         ...state,
-        {
-          users: [
-            ...users,
-            {
-              ...action.user
-            }
-          ]
+
+        currentUser: action.user
+      };
+
+    case "UPDATE_TOPICS":
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser,
+          topics: action.topics
         }
-      ];
+      };
     default:
       return state;
   }

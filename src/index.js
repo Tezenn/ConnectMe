@@ -10,6 +10,10 @@ import registerServiceWorker from "./registerServiceWorker";
 
 const store = createStore(
   rootReducer,
+  {
+    users: [],
+    currentUser: {}
+  },
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
