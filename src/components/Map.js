@@ -6,7 +6,7 @@ import { URL } from '../config';
 class UserMap extends Component {
   state = {
     selectedUser: null,
-    users: [1, 2, 3, 4]
+    users: [1, 2, 3, 4] //************************************NEED TO LOAD REAL USERS */
   };
 
   selectUser = user => {

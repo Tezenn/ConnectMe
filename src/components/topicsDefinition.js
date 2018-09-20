@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { updateTopics } from "../redux/actions/";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { updateTopics } from '../redux/actions/';
 
 class TopicsDefinition extends Component {
   state = {
     topics: [],
-    inpValue: ""
+    inpValue: ''
   };
 
   handleChange = ev => {
@@ -19,8 +19,21 @@ class TopicsDefinition extends Component {
     ev.preventDefault();
     this.setState({
       topics: [...this.state.topics, this.state.inpValue],
-      inpValue: ""
+      inpValue: ''
     });
+  };
+
+  createUser = () => {
+    fetch('http://localhost:3100/addUser', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...this.props.currentUser,
+        topics: this.state.topics
+      })
+    })
+      .then(res => console.log(res))
+      .then(this.props.updateTopics(this.state.topics));
   };
 
   render() {
@@ -43,8 +56,12 @@ class TopicsDefinition extends Component {
             return <h4 key={el}>{el}</h4>;
           })}
         </div>
-        <Link to={"/Map"}>
-          <button onClick={() => this.props.updateTopics(this.state.topics)}>
+        <Link to={'/Map'}>
+          <button
+            onClick={() => {
+              this.createUser();
+            }}
+          >
             Next
           </button>
         </Link>
@@ -54,7 +71,7 @@ class TopicsDefinition extends Component {
 }
 
 const mapStateToProps = state => ({
-  store: state
+  currentUser: state.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
