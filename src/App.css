@@ -14,3 +14,14 @@
   margin-top: 3vh;
   margin-bottom: 3vh;
 }
+
+.user_list {
+  margin-top: 4vh;
+  display: flex;
+  flex-direction: column;
+}
+.user_detail {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}

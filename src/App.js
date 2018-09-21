@@ -23,9 +23,9 @@ class App extends Component {
 
   topicsDefinition = () => <TopicsDefinition />;
 
+  //load all the users, maybe not needed
   async getData() {
     let users;
-
     await fetch('http://localhost:3100')
       .then(res => res.json())
       .then(res => (users = res));
@@ -35,6 +35,39 @@ class App extends Component {
   closeMap = () => {
     this.setState({ users: [] });
   };
+
+  //get current geolocation
+  currentPos = {};
+  getCurrentPosition = async () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.currentPos = position;
+        this.getCloseUsers(position);
+      });
+    } else console.log('Geolocation unavailable in your browser');
+    return;
+  };
+
+  //get user near your location
+  getCloseUsers = position => {
+    console.log('position: ', position.coords);
+    fetch('http://localhost:3100/nearMe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        long: position.coords.longitude,
+        lat: position.coords.latitude
+      })
+    })
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ users: res });
+      });
+  };
+
+  componentDidMount() {
+    this.getCurrentPosition();
+  }
 
   render() {
     return (
@@ -68,7 +101,7 @@ class App extends Component {
                     ) : (
                       <button
                         onClick={() => {
-                          this.getData();
+                          console.log('******');
                         }}
                       >
                         Localize them
@@ -76,13 +109,18 @@ class App extends Component {
                     )}
                   </div>
                   {this.state.users.length > 0 && (
-                    <Map users={this.state.users} />
+                    <div>
+                      <Map
+                        users={this.state.users}
+                        currentPos={this.currentPos}
+                      />
+                      <Interaction users={this.state.users} />
+                    </div>
                   )}
                 </div>
               );
             }}
           />
-          <Interaction user={this.state.currentUser} />
         </div>
       </Router>
     );

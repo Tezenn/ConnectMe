@@ -3,7 +3,7 @@ const db = require('../db');
 module.exports.addUser = async user => {
   let newUser = new db.User({
     username: user.username.toLowerCase(),
-    baseLocation: {
+    location: {
       type: 'Point',
       coordinates: [user.location.lng, user.location.lat]
     },
@@ -11,4 +11,25 @@ module.exports.addUser = async user => {
   });
   await newUser.save();
   console.log('user added to database');
+};
+
+module.exports.getUsers = async () => {
+  let users = await db.User.find();
+  return users;
+};
+
+module.exports.nearMe = async coords => {
+  console.log(coords);
+  let usersNear = await db.User.find({
+    location: {
+      $near: {
+        $geometry: { type: 'Point', coordinates: [coords.long, coords.lat] },
+        $maxDistance: 5000
+      }
+    }
+  }).find((error, results) => {
+    if (error) console.log(error);
+    console.log(results);
+  });
+  return usersNear;
 };

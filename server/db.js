@@ -6,9 +6,9 @@ const db = mongoose.connection;
 //user schema
 let user = new mongoose.Schema({
   username: String,
-  baseLocation: {
+  location: {
     type: { type: String },
-    coordinates: []
+    coordinates: [{ type: Number }]
   },
   topics: [String]
 });

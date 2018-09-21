@@ -6,7 +6,7 @@ import { URL } from '../config';
 class UserMap extends Component {
   state = {
     selectedUser: null,
-    users: [1, 2, 3, 4] //************************************NEED TO LOAD REAL USERS */
+    users: this.props.users
   };
 
   selectUser = user => {
@@ -17,11 +17,16 @@ class UserMap extends Component {
     const { users } = this.props;
     const { selectedUser } = this.state;
     return (
-      <GoogleMap defaultZoom={9} defaultCenter={{ lat: 45.84, lng: 9.66 }}>
+      <GoogleMap
+        defaultZoom={12}
+        defaultCenter={{
+          lat: this.props.currentPos.coords.latitude || 45.84,
+          lng: this.props.currentPos.coords.longitude || 9.66
+        }}
+      >
         {users.map((user, index) => (
           <MarkerWithInfo
             user={user}
-            position={user.position}
             key={index}
             onSelect={() => this.selectUser(user)}
             isOpen={user === selectedUser}
