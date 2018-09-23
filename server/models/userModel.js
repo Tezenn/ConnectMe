@@ -24,7 +24,7 @@ module.exports.nearMe = async coords => {
     location: {
       $near: {
         $geometry: { type: 'Point', coordinates: [coords.long, coords.lat] },
-        $maxDistance: 5000
+        $maxDistance: 15000
       }
     }
   }).find((error, results) => {
@@ -32,4 +32,9 @@ module.exports.nearMe = async coords => {
     console.log(results);
   });
   return usersNear;
+};
+
+module.exports.login = async username => {
+  let user = await db.User.findOne({ username: username.username });
+  return user;
 };

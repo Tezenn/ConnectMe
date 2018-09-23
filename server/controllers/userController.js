@@ -16,3 +16,8 @@ module.exports.nearMe = async ctx => {
   ctx.body = await userModel.nearMe(ctx.request.body);
   ctx.status = 200;
 };
+
+module.exports.login = async ctx => {
+  ctx.body = await userModel.login(ctx.request.body);
+  ctx.status = 200;
+};

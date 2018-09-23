@@ -5,6 +5,7 @@ import Map from './components/Map';
 import Interaction from './components/Interaction';
 import TopicsDefinition from './components/topicsDefinition';
 import SignUp from './components/SignUp';
+import Login from './components/Login';
 import { connect } from 'react-redux';
 import { addNewUser } from './redux/actions';
 
@@ -15,7 +16,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 class App extends Component {
   constructor(props) {
     super(props);
-
+    this.currentPos = {};
     this.state = {
       users: []
     };
@@ -37,10 +38,10 @@ class App extends Component {
   };
 
   //get current geolocation
-  currentPos = {};
+
   getCurrentPosition = async () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
+      await navigator.geolocation.getCurrentPosition(position => {
         this.currentPos = position;
         this.getCloseUsers(position);
       });
@@ -61,8 +62,19 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        this.setState({ users: res });
+        if (res.length > 0) this.setState({ users: res });
       });
+  };
+
+  //log in <O_o>
+  logUser = name => {
+    fetch('http://localhost:3100/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: name })
+    })
+      .then(res => res.json())
+      .then(res => this.props.addNewUser(res));
   };
 
   componentDidMount() {
@@ -76,6 +88,16 @@ class App extends Component {
           <Route
             exact={true}
             path="/"
+            render={() => (
+              <Login
+                logUser={this.logUser}
+                currentUser={this.props.store.currentUser}
+              />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/signup"
             render={() => <SignUp addNewUser={this.props.addNewUser} />}
           />
           <Route
@@ -113,6 +135,7 @@ class App extends Component {
                       <Map
                         users={this.state.users}
                         currentPos={this.currentPos}
+                        getCloseUsers={this.getCloseUsers}
                       />
                       <Interaction users={this.state.users} />
                     </div>

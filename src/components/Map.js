@@ -1,24 +1,55 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
+import _ from 'lodash';
 import MarkerWithInfo from './MarkerWithInfo';
 import { URL } from '../config';
 
 class UserMap extends Component {
   state = {
     selectedUser: null,
-    users: this.props.users
+    users: this.props.users,
+    lastCenter: null
   };
 
   selectUser = user => {
     this.setState({ selectedUser: user });
   };
 
+  updateMapRef = gM => {
+    this.mapRef = gM;
+  };
+  test = async () => {
+    setTimeout(() => {
+      console.log('debounced');
+      if (this.mapRef) {
+        this.setState({
+          lastCenter: {
+            coords: {
+              latitude: this.mapRef.getCenter().lat(),
+              longitude: this.mapRef.getCenter().lng()
+            }
+          }
+        });
+      }
+      this.props.getCloseUsers(this.state.lastCenter);
+    }, 2000);
+  };
+
+  debounced = _.throttle(this.test, 5000);
+
   render() {
     const { users } = this.props;
     const { selectedUser } = this.state;
     return (
       <GoogleMap
+        ref={this.updateMapRef}
         defaultZoom={12}
+        /*     onDragEnd={() =>
+
+        } */
+        onIdle={() => {
+          this.debounced();
+        }}
         defaultCenter={{
           lat: this.props.currentPos.coords.latitude || 45.84,
           lng: this.props.currentPos.coords.longitude || 9.66

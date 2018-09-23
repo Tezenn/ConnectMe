@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Julius+Sans+One');
+
 .App {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Julius Sans One', sans-serif;
 }
 
 .topicsDiv {
@@ -24,4 +27,27 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+}
+
+.title {
+  margin-top: 6vh;
+  font-size: 200%;
+}
+
+.common {
+  background-color: mediumspringgreen;
+}
+
+.choice {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 7vh;
+}
+
+.center {
+  margin-top: 7vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
