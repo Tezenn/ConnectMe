@@ -27,3 +27,10 @@ module.exports.addMessage = async ctx => {
   userModel.addMessage(message);
   ctx.status = 201;
 };
+
+module.exports.getMessages = async ctx => {
+  let sender = ctx.request.body.sender;
+  let receiver = ctx.request.body.receiver;
+  ctx.body = await userModel.getMessages(sender, receiver);
+  ctx.status = 200;
+};

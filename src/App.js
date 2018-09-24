@@ -136,7 +136,7 @@ class App extends Component {
               );
             }}
           />
-          <Route path="/messaging/:id" component={MessagingComponent} />
+          <Route path="/messaging" component={MessagingComponent} />
         </div>
       </Router>
     );

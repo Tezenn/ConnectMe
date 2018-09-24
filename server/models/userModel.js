@@ -42,10 +42,22 @@ module.exports.login = async username => {
 module.exports.addMessage = async message => {
   let newMessage = new db.Message({
     sender: message.sender,
-    receiver: message.reciver,
+    receiver: message.receiver,
     date: message.date,
     text: message.text
   });
   await newMessage.save();
   console.log('message stored');
+};
+
+module.exports.getMessages = async (sender, receiver) => {
+  let ourMess = await db.Message.find({
+    $or: [
+      { sender: sender, receiver: receiver },
+      { sender: receiver, receiver: sender }
+    ]
+  }).sort('date');
+  console.log(ourMess);
+
+  return ourMess;
 };

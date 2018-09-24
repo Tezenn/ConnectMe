@@ -18,7 +18,15 @@ class UserInfoTopics extends Component {
             );
           })}
         </ul>
-        <Link to={'/messaging/' + this.props.user._id}>
+        <Link
+          to={{
+            pathname: '/messaging',
+            state: {
+              receiver: this.props.user,
+              sender: this.props.currentUser
+            }
+          }}
+        >
           <button>connect</button>
         </Link>
       </div>
