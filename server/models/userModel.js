@@ -38,3 +38,14 @@ module.exports.login = async username => {
   let user = await db.User.findOne({ username: username.username });
   return user;
 };
+
+module.exports.addMessage = async message => {
+  let newMessage = new db.Message({
+    sender: message.sender,
+    receiver: message.reciver,
+    date: message.date,
+    text: message.text
+  });
+  await newMessage.save();
+  console.log('message stored');
+};

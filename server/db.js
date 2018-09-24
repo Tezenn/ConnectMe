@@ -13,9 +13,20 @@ let user = new mongoose.Schema({
   topics: [String]
 });
 
+//message schema
+let message = new mongoose.Schema({
+  sender: mongoose.Schema.Types.ObjectId,
+  receiver: mongoose.Schema.Types.ObjectId,
+  date: Date,
+  text: String
+});
+
 user.index({ location: '2dsphere' });
 
 //user model
 let User = mongoose.model('User', user);
 
-module.exports = { db, user, User };
+//message model
+let Message = mongoose.model('Message', message);
+
+module.exports = { db, user, User, message, Message };

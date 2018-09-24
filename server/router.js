@@ -7,5 +7,6 @@ router.get('/', userController.getUsers);
 router.post('/nearMe', userController.nearMe);
 router.post('/addUser', userController.create);
 router.post('/login', userController.login);
+router.post('/addMessage', userController.addMessage);
 
 module.exports = router;

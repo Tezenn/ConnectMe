@@ -16,7 +16,7 @@ class LocationSearchInput extends Component {
     this.convertedAddress = '';
   }
 
-  /*  componentDidMount() {
+  componentDidMount() {
     Geocode.setApiKey(API_KEY);
     Geocode.enableDebug();
     Geocode.fromLatLng(
@@ -29,7 +29,7 @@ class LocationSearchInput extends Component {
       },
       error => console.log(error)
     );
-  } */
+  }
 
   handleChange = address => this.setState({ address: address });
 

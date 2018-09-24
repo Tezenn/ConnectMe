@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class UserInfoTopics extends Component {
   render() {
@@ -17,7 +18,9 @@ class UserInfoTopics extends Component {
             );
           })}
         </ul>
-        <button>connect</button>
+        <Link to={'/messaging/' + this.props.user._id}>
+          <button>connect</button>
+        </Link>
       </div>
     );
   }

@@ -7,9 +7,10 @@ import TopicsDefinition from './components/topicsDefinition';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import { connect } from 'react-redux';
-import { addNewUser } from './redux/actions';
+import { addNewUser, populateUsers } from './redux/actions';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import MessagingComponent from './components/MessagingComponent';
 
 //const Dump = props => <pre>{JSON.stringify(props, null, 2)}</pre>;
 
@@ -67,7 +68,7 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        if (res.length > 0) this.setState({ users: res });
+        if (res.length > 0) this.props.populateUsers(res);
       });
   };
 
@@ -121,20 +122,21 @@ class App extends Component {
             render={() => {
               return (
                 <div className="topicsDiv">
-                  {this.state.users.length > 0 && (
+                  {this.props.store.users.length > 0 && (
                     <div className="topicsDiv">
                       <Map
-                        users={this.state.users}
+                        users={this.props.store.users}
                         currentPos={this.currentPos}
                         getCloseUsers={this.getCloseUsers}
                       />
-                      <Interaction users={this.state.users} />
+                      <Interaction users={this.props.store.users} />
                     </div>
                   )}
                 </div>
               );
             }}
           />
+          <Route path="/messaging/:id" component={MessagingComponent} />
         </div>
       </Router>
     );
@@ -146,7 +148,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addNewUser: newUser => dispatch(addNewUser(newUser))
+  addNewUser: newUser => dispatch(addNewUser(newUser)),
+  populateUsers: users => dispatch(populateUsers(users))
 });
 
 export default connect(
