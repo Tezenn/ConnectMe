@@ -10,7 +10,7 @@ class UserInfoTopics extends Component {
         <ul>
           {this.props.user.topics.map(el => {
             return this.props.currentUser.topics.find(
-              topics => topics == el
+              topics => topics === el
             ) ? (
               <li className="commonTopic">{el}</li>
             ) : (

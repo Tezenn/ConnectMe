@@ -175,3 +175,58 @@ button:hover:before {
 button:focus {
   outline: none;
 }
+
+.chatDiv {
+  overflow-y: auto;
+  height: 60vh;
+  margin-bottom: 30px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background: lightgray;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+.chatDiv {
+  padding-right: 30px;
+  margin-top: 50px;
+  width: 50vw;
+  font-size: 1.5rem;
+}
+
+.chatForm,
+.chatForm input {
+  width: 100%;
+}
+
+.chatForm {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+}
+
+.chatForm button {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.chatForm input {
+  font-size: 1.5rem;
+  border: 0;
+  background: rgba(0, 0, 0, 0.025);
+}
+
+time {
+  font-size: 1.1rem;
+}
+
+.chatForm input:focus {
+  background-color: lightgoldenrodyellow;
+}

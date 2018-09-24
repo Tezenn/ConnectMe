@@ -44,25 +44,27 @@ class MessagingComponent extends Component {
 
   render() {
     return (
-      <div>
-        <div className="message_list" />
+      <div class="App">
         <h1>Send a message to {this.props.location.state.receiver.username}</h1>
-        <div>
-          {this.state.messages.length > 1 ? (
-            this.state.messages.map(el => (
-              <div>
-                <h4>{el.text}</h4>
-                <Moment format="YYYY-MM-DD HH:mm">{el.date}</Moment>
-              </div>
-            ))
-          ) : (
-            <h4>
-              Send a message to {this.props.location.state.receiver.username} to
-              start a conversation
-            </h4>
-          )}
+        <div className="chatDiv">
+          <div className="message_list" />
+          <div>
+            {this.state.messages.length > 1 ? (
+              this.state.messages.map(el => (
+                <div>
+                  <h4>{el.text}</h4>
+                  <Moment format="YY-MM-DD HH:mm">{el.date}</Moment>
+                </div>
+              ))
+            ) : (
+              <h4>
+                Send a message to {this.props.location.state.receiver.username}{' '}
+                to start a conversation
+              </h4>
+            )}
+          </div>
         </div>
-        <form onSubmit={this.handleSubmit}>
+        <form className="chatForm" onSubmit={this.handleSubmit}>
           <input
             type="text"
             onChange={this.handleChange}
