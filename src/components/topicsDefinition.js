@@ -36,6 +36,16 @@ class TopicsDefinition extends Component {
       .then(this.props.updateTopics(this.state.topics));
   };
 
+  logUser = name => {
+    fetch('http://localhost:3100/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: name })
+    })
+      .then(res => res.json())
+      .then(res => console.log(res));
+  };
+
   render() {
     return (
       <div className="topicsDiv">
@@ -47,7 +57,9 @@ class TopicsDefinition extends Component {
             onChange={this.handleChange}
             value={this.state.inpValue}
           />
-          <input type="submit" value="Add Topic" />
+          <button type="submit" value="Add Topic">
+            Add Topic
+          </button>
         </form>
 
         <div>

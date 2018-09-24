@@ -45,7 +45,9 @@ class Login extends Component {
             <h2>Password:</h2>
             <input type="password" placeholder="Insert Password" />
             <br />
-            <input type="submit" value="Log In" />
+            <button type="submit" value="Log In">
+              Log in
+            </button>
           </form>
         )}
       </div>

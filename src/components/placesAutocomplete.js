@@ -3,16 +3,34 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from 'react-places-autocomplete';
+import Geocode from 'react-geocode';
 import { withScriptjs } from 'react-google-maps';
 import { URL } from '../config';
+import { API_KEY } from '../config';
 
 class LocationSearchInput extends Component {
   constructor(props) {
     super(props);
     this.state = { address: '', latLng: '' };
     this.geoLoc = {};
-    this.test = '';
+    this.convertedAddress = '';
   }
+
+  /*  componentDidMount() {
+    Geocode.setApiKey(API_KEY);
+    Geocode.enableDebug();
+    Geocode.fromLatLng(
+      this.props.currentPos.coords.latitude.toString(),
+      this.props.currentPos.coords.longitude.toString()
+    ).then(
+      res => {
+        const address = res.results[0].formatted_address;
+        this.setState({ address: address });
+      },
+      error => console.log(error)
+    );
+  } */
+
   handleChange = address => this.setState({ address: address });
 
   handleSelect = address => {

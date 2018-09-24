@@ -43,6 +43,7 @@ class SignUp extends Component {
   };
 
   render() {
+    console.log(this.props);
     if (this.state.next) {
       return <Redirect to="/topicsDefinition" />;
     }
@@ -59,9 +60,14 @@ class SignUp extends Component {
             value={this.state.newUser.username}
           />
           <h2>Where do you live?</h2>
-          <AutocompleteSetting geo={this.handleGeo} />
+          <AutocompleteSetting
+            geo={this.handleGeo}
+            currentPos={this.props.currentPos}
+          />
           <br />
-          <input type="submit" value="Sign Up" />
+          <button type="submit" value="Sign Up">
+            Sign Up
+          </button>
         </form>
       </div>
     );

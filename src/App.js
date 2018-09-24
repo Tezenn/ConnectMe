@@ -43,6 +43,11 @@ class App extends Component {
     if (navigator.geolocation) {
       await navigator.geolocation.getCurrentPosition(position => {
         this.currentPos = position;
+        console.log(
+          '*************',
+          this.currentPos.coords,
+          '******************'
+        );
         this.getCloseUsers(position);
       });
     } else console.log('Geolocation unavailable in your browser');
@@ -98,7 +103,12 @@ class App extends Component {
           <Route
             exact={true}
             path="/signup"
-            render={() => <SignUp addNewUser={this.props.addNewUser} />}
+            render={() => (
+              <SignUp
+                addNewUser={this.props.addNewUser}
+                currentPos={this.currentPos}
+              />
+            )}
           />
           <Route
             exact={true}
@@ -111,27 +121,8 @@ class App extends Component {
             render={() => {
               return (
                 <div className="topicsDiv">
-                  <div className="buttons">
-                    {this.state.users.length > 0 ? (
-                      <button
-                        onClick={() => {
-                          this.closeMap();
-                        }}
-                      >
-                        Close Map
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => {
-                          console.log('******');
-                        }}
-                      >
-                        Localize them
-                      </button>
-                    )}
-                  </div>
                   {this.state.users.length > 0 && (
-                    <div>
+                    <div className="topicsDiv">
                       <Map
                         users={this.state.users}
                         currentPos={this.currentPos}

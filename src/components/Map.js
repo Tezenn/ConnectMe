@@ -44,9 +44,6 @@ class UserMap extends Component {
       <GoogleMap
         ref={this.updateMapRef}
         defaultZoom={12}
-        /*     onDragEnd={() =>
-
-        } */
         onIdle={() => {
           this.debounced();
         }}
@@ -76,7 +73,7 @@ export default function UserMapWithSettings(props) {
     <ConnectedUserMap
       googleMapURL={URL}
       loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height: `400px`, width: '80vw' }} />}
+      containerElement={<div style={{ height: `600px`, width: '80%' }} />}
       mapElement={<div style={{ height: `100%` }} />}
       {...props}
     />

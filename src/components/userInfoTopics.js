@@ -6,9 +6,18 @@ class UserInfoTopics extends Component {
     return (
       <div className="user_detail">
         <h2>{this.props.user.username}</h2>
-        {this.props.user.topics.map(el => {
-          return <h4>{el}</h4>;
-        })}
+        <ul>
+          {this.props.user.topics.map(el => {
+            return this.props.currentUser.topics.find(
+              topics => topics == el
+            ) ? (
+              <li className="commonTopic">{el}</li>
+            ) : (
+              <li>{el}</li>
+            );
+          })}
+        </ul>
+        <button>connect</button>
       </div>
     );
   }
