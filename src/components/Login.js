@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Login extends Component {
   constructor(props) {
@@ -17,6 +18,9 @@ class Login extends Component {
   handleSubmit = async ev => {
     ev.preventDefault();
     await this.props.logUser(this.state.inpValue);
+    setTimeout(() => {
+      this.props.checkMessageBox();
+    }, 500);
     //this.state.inpValue = '';
   };
 
@@ -26,6 +30,7 @@ class Login extends Component {
       <div>
         <div className="title">
           <h1>Connect . Me</h1>
+          <p>Explore the world map and find interesting people</p>
         </div>
         <div className="choice">
           <Link to={'/signup'}>
@@ -55,4 +60,8 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  store: state
+});
+
+export default connect(mapStateToProps)(Login);

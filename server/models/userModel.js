@@ -43,6 +43,8 @@ module.exports.addMessage = async message => {
   let newMessage = new db.Message({
     sender: message.sender,
     receiver: message.receiver,
+    senderName: message.senderName,
+    receiverName: message.receiverName,
     date: message.date,
     text: message.text
   });
@@ -57,7 +59,25 @@ module.exports.getMessages = async (sender, receiver) => {
       { sender: receiver, receiver: sender }
     ]
   }).sort('date');
-  console.log(ourMess);
-
   return ourMess;
+};
+
+module.exports.getMyMessages = async receiver => {
+  let allMyMessages = await db.Message.find({
+    $or: [{ receiver: receiver.receiver }, { sender: receiver.receiver }]
+  });
+  //dividing messages by users
+  let x = allMyMessages.reduce((acc, next) => {
+    if (next.sender != receiver.receiver && !acc[next.sender]) {
+      acc[next.sender] = { username: next.senderName, messages: [next] };
+    } else if (next.sender != receiver.receiver && acc[next.sender]) {
+      acc[next.sender].messages.push(next);
+    } else if (next.receiver != receiver.receiver && !acc[next.receiver]) {
+      acc[next.receiver] = { username: next.receiverName, messages: [next] };
+    } else if (next.receiver != receiver.receiver && acc[next.receiver]) {
+      acc[next.receiver].messages.push(next);
+    }
+    return acc;
+  }, {});
+  return x;
 };

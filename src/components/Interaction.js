@@ -6,7 +6,9 @@ class Interaction extends Component {
     return (
       <div className="user_list">
         {this.props.users.map(el => {
-          return <UserInfoTopics user={el} />;
+          if (el.username !== this.props.curUser) {
+            return <UserInfoTopics user={el} key={el._id} />;
+          }
         })}
       </div>
     );

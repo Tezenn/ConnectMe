@@ -97,6 +97,7 @@ button:hover {
 .title {
   margin-top: 6vh;
   font-size: 200%;
+  text-align: center;
 }
 
 .common {
@@ -106,7 +107,7 @@ button:hover {
 .choice {
   display: flex;
   justify-content: space-around;
-  margin-top: 7vh;
+  margin-top: 15vh;
 }
 
 a {
@@ -219,7 +220,6 @@ button:focus {
 
 .chatForm input {
   font-size: 1.5rem;
-  border: 0;
   background: rgba(0, 0, 0, 0.025);
 }
 
@@ -229,4 +229,32 @@ time {
 
 .chatForm input:focus {
   background-color: lightgoldenrodyellow;
+}
+
+input {
+  text-align: center;
+}
+
+.chatTitle {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  align-items: center;
+  width: 100%;
+}
+
+.chatTitle h1 {
+  padding-left: 10px;
+  line-height: 1.7em;
+  margin: 0;
+}
+
+.chatTitle svg {
+  height: 1.7em;
+}
+
+.mailbox_btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

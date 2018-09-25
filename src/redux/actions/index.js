@@ -12,3 +12,8 @@ export const populateUsers = users => ({
   type: 'POPULATE_USERS',
   users: users
 });
+
+export const loadMyMessages = messages => ({
+  type: 'LOAD_MY_MESSAGES',
+  messages
+});

@@ -9,5 +9,6 @@ router.post('/addUser', userController.create);
 router.post('/login', userController.login);
 router.post('/addMessage', userController.addMessage);
 router.post('/getMessages', userController.getMessages);
+router.post('/getMyMessages', userController.getMyMessages);
 
 module.exports = router;

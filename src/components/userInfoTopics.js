@@ -12,9 +12,11 @@ class UserInfoTopics extends Component {
             return this.props.currentUser.topics.find(
               topics => topics === el
             ) ? (
-              <li className="commonTopic">{el}</li>
+              <li className="commonTopic" key={el + Math.random()}>
+                {el}
+              </li>
             ) : (
-              <li>{el}</li>
+              <li key={el + Math.random()}>{el}</li>
             );
           })}
         </ul>

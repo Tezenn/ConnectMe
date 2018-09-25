@@ -34,3 +34,9 @@ module.exports.getMessages = async ctx => {
   ctx.body = await userModel.getMessages(sender, receiver);
   ctx.status = 200;
 };
+
+module.exports.getMyMessages = async ctx => {
+  let receiver = ctx.request.body;
+  ctx.body = await userModel.getMyMessages(receiver);
+  ctx.status = 200;
+};

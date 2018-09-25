@@ -17,6 +17,8 @@ let user = new mongoose.Schema({
 let message = new mongoose.Schema({
   sender: mongoose.Schema.Types.ObjectId,
   receiver: mongoose.Schema.Types.ObjectId,
+  senderName: String,
+  receiverName: String,
   date: Date,
   text: String
 });

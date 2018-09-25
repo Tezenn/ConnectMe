@@ -27,6 +27,12 @@ const users = (
         ...state,
         users: action.users
       };
+
+    case 'LOAD_MY_MESSAGES':
+      return {
+        ...state,
+        myMessages: action.messages
+      };
     default:
       return state;
   }

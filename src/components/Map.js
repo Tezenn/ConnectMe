@@ -32,7 +32,7 @@ class UserMap extends Component {
         });
       }
       this.props.getCloseUsers(this.state.lastCenter);
-    }, 2000);
+    }, 1000);
   };
 
   debounced = _.throttle(this.test, 5000);

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+library.add(faArrowLeft);
 
 class MessagingComponent extends Component {
   state = {
@@ -8,7 +12,7 @@ class MessagingComponent extends Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost:3100/getMessages', {
+    /*     fetch('http://localhost:3100/getMessages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -17,25 +21,37 @@ class MessagingComponent extends Component {
       })
     })
       .then(res => res.json())
-      .then(res => this.setState({ messages: res }));
+      .then(res => this.setState({ messages: res })); */
+
+    setTimeout(() => this.scrollToBottom(), 600);
   }
 
-  handleSubmit = ev => {
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  handleSubmit = async ev => {
     ev.preventDefault();
-    fetch('http://localhost:3100/addMessage', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sender: this.props.location.state.sender._id,
-        receiver: this.props.location.state.receiver._id,
-        date: Date.now(),
-        text: this.state.inpValue
-      })
-    });
-    this.setState({
-      messages: [...this.state.messages, { text: this.state.inpValue }]
-    });
-    this.setState({ inpValue: '' });
+    if (this.state.inpValue.length > 0) {
+      await fetch('http://localhost:3100/addMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sender: this.props.location.state.sender._id,
+          receiver: this.props.location.state.receiver._id,
+          senderName: this.props.location.state.sender.username,
+          receiverName: this.props.location.state.receiver.username,
+          date: Date.now(),
+          text: this.state.inpValue
+        })
+      });
+      this.setState({
+        messages: [...this.state.messages, { text: this.state.inpValue }],
+        inpValue: ''
+      });
+      console.log(this.state);
+      //this.setState({ inpValue: '' });
+    }
   };
 
   handleChange = ev => {
@@ -44,9 +60,18 @@ class MessagingComponent extends Component {
 
   render() {
     return (
-      <div class="App">
-        <h1>Send a message to {this.props.location.state.receiver.username}</h1>
-        <div className="chatDiv">
+      <div className="App">
+        <div className="chatTitle">
+          <FontAwesomeIcon
+            icon="arrow-left"
+            size={'2x'}
+            onClick={() => this.props.history.goBack()}
+          />
+          <h1>
+            Send a message to {this.props.location.state.receiver.username}
+          </h1>
+        </div>
+        <div className="chatDiv tez">
           <div className="message_list" />
           <div>
             {this.state.messages.length > 1 ? (
@@ -57,12 +82,18 @@ class MessagingComponent extends Component {
                 </div>
               ))
             ) : (
-              <h4>
+              <p>
                 Send a message to {this.props.location.state.receiver.username}{' '}
                 to start a conversation
-              </h4>
+              </p>
             )}
           </div>
+          <div
+            style={{ float: 'left', clear: 'both' }}
+            ref={el => {
+              this.messagesEnd = el;
+            }}
+          />
         </div>
         <form className="chatForm" onSubmit={this.handleSubmit}>
           <input
