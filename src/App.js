@@ -166,7 +166,15 @@ class App extends Component {
               );
             }}
           />
-          <Route path="/messaging" component={MessagingComponent} />
+          <Route
+            path="/messaging"
+            render={props => (
+              <MessagingComponent
+                {...props}
+                currentUser={this.props.store.currentUser}
+              />
+            )}
+          />
           <Route exact path="/mailbox" component={Mailbox} />
         </div>
       </Router>

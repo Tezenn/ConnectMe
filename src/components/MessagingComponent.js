@@ -79,12 +79,20 @@ class MessagingComponent extends Component {
           <div className="message_list" />
           <div>
             {this.state.messages.length > 0 ? (
-              this.state.messages.map(el => (
-                <div>
-                  <h4>{el.text}</h4>
-                  <Moment format="YY-MM-DD HH:mm">{el.date}</Moment>
-                </div>
-              ))
+              this.state.messages.map(
+                el =>
+                  el.sender == this.props.currentUser._id ? (
+                    <div className="sender_chat">
+                      <h4>{el.text}</h4>
+                      <Moment format="YY-MM-DD HH:mm">{el.date}</Moment>
+                    </div>
+                  ) : (
+                    <div className="receiver_chat">
+                      <h4>{el.text}</h4>
+                      <Moment format="YY-MM-DD HH:mm">{el.date}</Moment>
+                    </div>
+                  )
+              )
             ) : (
               <p>
                 Send a message to {this.props.location.state.receiver.username}{' '}
