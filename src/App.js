@@ -142,11 +142,11 @@ class App extends Component {
             path="/Map"
             render={() => {
               return (
-                <div className="topicsDiv">
+                <div>
                   <Link to="/mailbox">
                     <div className="mailbox_btn">
                       <FontAwesomeIcon icon="comments" size={'3x'} />
-                      <h5>Enter your mailbox</h5>
+                      <h5>Your Conversations</h5>
                     </div>
                   </Link>
                   {this.props.store.users.length > 0 && (

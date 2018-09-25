@@ -73,7 +73,7 @@ export default function UserMapWithSettings(props) {
     <ConnectedUserMap
       googleMapURL={URL}
       loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height: `600px`, width: '80%' }} />}
+      containerElement={<div style={{ height: `600px`, width: '80vw' }} />}
       mapElement={<div style={{ height: `100%` }} />}
       {...props}
     />

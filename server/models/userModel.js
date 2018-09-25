@@ -49,6 +49,7 @@ module.exports.addMessage = async message => {
     text: message.text
   });
   await newMessage.save();
+  return newMessage;
   console.log('message stored');
 };
 

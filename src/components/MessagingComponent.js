@@ -12,7 +12,7 @@ class MessagingComponent extends Component {
   };
 
   componentDidMount() {
-    /*     fetch('http://localhost:3100/getMessages', {
+    fetch('http://localhost:3100/getMessages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -21,7 +21,7 @@ class MessagingComponent extends Component {
       })
     })
       .then(res => res.json())
-      .then(res => this.setState({ messages: res })); */
+      .then(res => this.setState({ messages: res }));
 
     setTimeout(() => this.scrollToBottom(), 600);
   }
@@ -44,11 +44,15 @@ class MessagingComponent extends Component {
           date: Date.now(),
           text: this.state.inpValue
         })
-      });
-      this.setState({
-        messages: [...this.state.messages, { text: this.state.inpValue }],
-        inpValue: ''
-      });
+      })
+        .then(res => res.json())
+        .then(res =>
+          this.setState({
+            messages: [...this.state.messages, res],
+            inpValue: ''
+          })
+        );
+
       console.log(this.state);
       //this.setState({ inpValue: '' });
     }
@@ -74,7 +78,7 @@ class MessagingComponent extends Component {
         <div className="chatDiv tez">
           <div className="message_list" />
           <div>
-            {this.state.messages.length > 1 ? (
+            {this.state.messages.length > 0 ? (
               this.state.messages.map(el => (
                 <div>
                   <h4>{el.text}</h4>

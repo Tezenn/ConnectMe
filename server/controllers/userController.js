@@ -24,7 +24,7 @@ module.exports.login = async ctx => {
 
 module.exports.addMessage = async ctx => {
   let message = ctx.request.body;
-  userModel.addMessage(message);
+  ctx.body = await userModel.addMessage(message);
   ctx.status = 201;
 };
 
