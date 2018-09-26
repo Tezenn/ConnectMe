@@ -20,7 +20,7 @@ class Mailbox extends Component {
           size={'2x'}
           onClick={() => this.props.history.goBack()}
         />
-        <h1>My Conversations</h1>
+        <h1 className="boxtitle">My Conversations</h1>
         <div className="conversations">
           {this.state.keys &&
             this.props.store.myMessages &&
