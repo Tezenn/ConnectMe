@@ -23,16 +23,25 @@ class Mailbox extends Component {
         <h1>My Conversations</h1>
         <div className="conversations">
           {this.state.keys &&
+            this.props.store.myMessages &&
             this.state.keys.map(el => (
               <Link
                 to={{
                   pathname: '/messaging',
                   state: {
-                    receiver: {
+                    /*  receiver: {
                       _id: this.props.store.myMessages[el].messages[0].receiver,
                       username: this.props.store.myMessages[el].messages[0]
                         .receiverName
-                    } /*************************** */,
+                    }, */ //***************************
+                    receiver: {
+                      _id: this.props.store.myMessages[el].messages.find(
+                        el => el.sender != this.props.store.currentUser._id
+                      ).sender,
+                      username: this.props.store.myMessages[el].messages.find(
+                        el => el.sender != this.props.store.currentUser._id
+                      ).senderName
+                    },
                     sender: this.props.store.currentUser
                   }
                 }}

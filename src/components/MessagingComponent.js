@@ -56,6 +56,7 @@ class MessagingComponent extends Component {
       console.log(this.state);
       //this.setState({ inpValue: '' });
     }
+    this.scrollToBottom();
   };
 
   handleChange = ev => {
