@@ -53,7 +53,6 @@ class MessagingComponent extends Component {
           })
         );
 
-      console.log(this.state);
       //this.setState({ inpValue: '' });
     }
     this.scrollToBottom();
@@ -82,7 +81,7 @@ class MessagingComponent extends Component {
             {this.state.messages.length > 0 ? (
               this.state.messages.map(
                 el =>
-                  el.sender == this.props.currentUser._id ? (
+                  el.sender === this.props.currentUser._id ? (
                     <div className="sender_chat">
                       <h4>{el.text}</h4>
                       <Moment format="YY-MM-DD HH:mm">{el.date}</Moment>

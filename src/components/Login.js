@@ -21,7 +21,6 @@ class Login extends Component {
     setTimeout(() => {
       this.props.checkMessageBox();
     }, 500);
-    //this.state.inpValue = '';
   };
 
   render() {

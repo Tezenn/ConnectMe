@@ -10,7 +10,6 @@ module.exports.addUser = async user => {
     topics: user.topics.map(el => el.toLowerCase())
   });
   await newUser.save();
-  console.log('user added to database');
 };
 
 module.exports.getUsers = async () => {
@@ -19,7 +18,6 @@ module.exports.getUsers = async () => {
 };
 
 module.exports.nearMe = async coords => {
-  console.log(coords);
   let usersNear = await db.User.find({
     location: {
       $near: {
@@ -29,7 +27,6 @@ module.exports.nearMe = async coords => {
     }
   }).find((error, results) => {
     if (error) console.log(error);
-    console.log(results);
   });
   return usersNear;
 };
@@ -50,7 +47,6 @@ module.exports.addMessage = async message => {
   });
   await newMessage.save();
   return newMessage;
-  console.log('message stored');
 };
 
 module.exports.getMessages = async (sender, receiver) => {
