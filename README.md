@@ -27,9 +27,13 @@ Your conversations. Click on a user name to get back to chatting
 
 # Getting Started
 
-To have a operative app you will need mongoDb installed on your machine.
+To have a operative app you will need mongoDb and Node.js installed on your machine.
 
 Clone the repo to your pc.
+```
+git clone https://github.com/Tezenn/ConnectMe.git
+cd ConnectMe
+```
 First you should run `npm install` in your terminal.
 Inside the src folder create a config.js file with those variables inside:
 
@@ -48,6 +52,19 @@ The app is running!
 This was a learning experience during the first week of the senior part of Codeworks bootcamp, this app is a work in progress.
 
 If you liked the idea and want to improve it let's connect!
+
+# Tech Stack
+
+Front End:
+
+* React
+* Redux
+* Google Map Api
+
+Back End:
+
+* Koa
+* MongoDb
 
 # Coming features
 
