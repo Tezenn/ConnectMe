@@ -31,7 +31,9 @@ class TopicsDefinition extends Component {
         ...this.props.currentUser,
         topics: this.state.topics
       })
-    }).then(this.props.updateTopics(this.state.topics));
+    })
+      .then(res => console.log(res))
+      .then(this.props.updateTopics(this.state.topics));
   };
 
   logUser = name => {
@@ -39,7 +41,9 @@ class TopicsDefinition extends Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: name })
-    }).then(res => res.json());
+    })
+      .then(res => res.json())
+      .then(res => console.log(res));
   };
 
   render() {

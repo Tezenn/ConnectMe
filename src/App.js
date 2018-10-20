@@ -15,6 +15,8 @@ import { faComments } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 library.add(faComments);
 
+//const Dump = props => <pre>{JSON.stringify(props, null, 2)}</pre>;
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -45,14 +47,20 @@ class App extends Component {
     if (navigator.geolocation) {
       await navigator.geolocation.getCurrentPosition(position => {
         this.currentPos = position;
+        console.log(
+          '*************',
+          this.currentPos.coords,
+          '******************'
+        );
         this.getCloseUsers(position);
       });
-    } else alert('Geolocation unavailable in your browser');
+    } else console.log('Geolocation unavailable in your browser');
     return;
   };
 
   //get user near your location
   getCloseUsers = position => {
+    console.log('position: ', position.coords);
     fetch('http://localhost:3100/nearMe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -82,6 +90,7 @@ class App extends Component {
 
   //checkForMYMessages
   checkMessageBox = async () => {
+    console.log(this.props.store.currentUser);
     await fetch('http://localhost:3100/getMyMessages', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -89,12 +98,13 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(res => {
+        console.log(res);
         this.props.loadMyMessages(res);
       });
   };
 
   componentDidMount() {
-    this.getCurrentPosition();
+    this.getCurrentPosition(); ////////////////////////////////////AWAY
   }
 
   render() {
@@ -145,7 +155,6 @@ class App extends Component {
                         users={this.props.store.users}
                         currentPos={this.currentPos}
                         getCloseUsers={this.getCloseUsers}
-                        currentUser={this.props.store.currentUser}
                       />
                       <Interaction
                         curUser={this.props.store.currentUser.username}

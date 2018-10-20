@@ -21,6 +21,7 @@ class SignUp extends Component {
   };
 
   handleGeo = obj => {
+    console.log(obj);
     this.setState({
       newUser: {
         ...this.state.newUser,
@@ -42,6 +43,7 @@ class SignUp extends Component {
   };
 
   render() {
+    console.log(this.props);
     if (this.state.next) {
       return <Redirect to="/topicsDefinition" />;
     }

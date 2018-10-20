@@ -3,7 +3,6 @@ import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import _ from 'lodash';
 import MarkerWithInfo from './MarkerWithInfo';
 import { URL } from '../config';
-import { Redirect } from 'react-router-dom';
 
 class UserMap extends Component {
   state = {
@@ -21,6 +20,7 @@ class UserMap extends Component {
   };
   test = async () => {
     setTimeout(() => {
+      console.log('debounced');
       if (this.mapRef) {
         this.setState({
           lastCenter: {
