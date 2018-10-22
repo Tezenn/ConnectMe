@@ -2,22 +2,11 @@
 
 Connect me allows you to explore a map and connect with other users based on shared interests.
 
-![alt text](https://res.cloudinary.com/dwfodxlfi/image/upload/v1540034251/connect_me_login.png)
-
-Landing page
-
----
-
 ![alt text](https://res.cloudinary.com/dwfodxlfi/image/upload/v1540034252/connect_me_map.png)
-
-Explore the map 
-
----
 
 ## Getting Started
 
-To have a operative app you will need mongoDb and Node.js installed on your machine.
-
+To have an operative app you will need mongoDb and Node.js installed on your machine.
 
 1. `git clone https://github.com/Tezenn/ConnectMe.git`
 2. `cd ConnectMe`
@@ -33,6 +22,7 @@ export { API_KEY, URL };
 ```
 5. enter the server folder and run `node index.js` in the terminal
 6. Go to the src folder and run `npm start` in the terminal.
+
 The app is running!
 
 # Tech Stack
