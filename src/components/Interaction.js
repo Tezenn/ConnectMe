@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import UserInfoTopics from './userInfoTopics';
 
 class Interaction extends Component {
+  componentDidMount() {
+    this.props.checkMessageBox();
+  }
   render() {
     return (
       <div className="user_list">

@@ -29,18 +29,23 @@ class Mailbox extends Component {
                 to={{
                   pathname: '/messaging',
                   state: {
-                    /*  receiver: {
-                      _id: this.props.store.myMessages[el].messages[0].receiver,
-                      username: this.props.store.myMessages[el].messages[0]
-                        .receiverName
-                    }, */ //***************************
-                    receiver: {
+                    /*      receiver: {
                       _id: this.props.store.myMessages[el].messages.find(
                         el => el.sender != this.props.store.currentUser._id
                       ).sender,
                       username: this.props.store.myMessages[el].messages.find(
                         el => el.sender != this.props.store.currentUser._id
                       ).senderName
+                    }, */
+                    receiver: this.props.store.myMessages[el].messages.find(
+                      el => el.sender !== this.props.store.currentUser._id
+                    ) || {
+                      _id: this.props.store.myMessages[el].messages.find(
+                        el => el.sender === this.props.store.currentUser._id
+                      ).receiver,
+                      username: this.props.store.myMessages[el].messages.find(
+                        el => el.sender === this.props.store.currentUser._id
+                      ).receiverName
                     },
                     sender: this.props.store.currentUser
                   }

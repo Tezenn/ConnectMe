@@ -18,9 +18,6 @@ class Login extends Component {
   handleSubmit = async ev => {
     ev.preventDefault();
     await this.props.logUser(this.state.inpValue);
-    setTimeout(() => {
-      this.props.checkMessageBox();
-    }, 500);
     //this.state.inpValue = '';
   };
 

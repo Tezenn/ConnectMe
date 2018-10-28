@@ -29,7 +29,6 @@ module.exports.nearMe = async coords => {
     }
   }).find((error, results) => {
     if (error) console.log(error);
-    console.log(results);
   });
   return usersNear;
 };
@@ -54,10 +53,13 @@ module.exports.addMessage = async message => {
 };
 
 module.exports.getMessages = async (sender, receiver) => {
+  console.log('sender: ', sender, 'receiver: ', receiver);
   let ourMess = await db.Message.find({
     $or: [
-      { sender: sender, receiver: receiver },
-      { sender: receiver, receiver: sender }
+      { sender: sender._id, receiver: receiver.sender },
+      { sender: receiver.sender, receiver: sender._id },
+      { sender: sender._id, receiver: receiver._id },
+      { sender: receiver._id, receiver: sender._id }
     ]
   }).sort('date');
   return ourMess;

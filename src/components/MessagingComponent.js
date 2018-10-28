@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,8 +17,8 @@ class MessagingComponent extends Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        sender: this.props.location.state.sender._id,
-        receiver: this.props.location.state.receiver._id
+        sender: this.props.location.state.sender,
+        receiver: this.props.location.state.receiver
       })
     })
       .then(res => res.json())
@@ -37,9 +38,9 @@ class MessagingComponent extends Component {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          sender: this.props.location.state.sender._id,
+          sender: this.props.store.currentUser._id,
           receiver: this.props.location.state.receiver._id,
-          senderName: this.props.location.state.sender.username,
+          senderName: this.props.store.currentUser.username,
           receiverName: this.props.location.state.receiver.username,
           date: Date.now(),
           text: this.state.inpValue
@@ -121,4 +122,8 @@ class MessagingComponent extends Component {
   }
 }
 
-export default MessagingComponent;
+const mapStateToProps = state => ({
+  store: state
+});
+
+export default connect(mapStateToProps)(MessagingComponent);

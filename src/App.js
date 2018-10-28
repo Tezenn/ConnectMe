@@ -37,22 +37,14 @@ class App extends Component {
     this.setState({ users: users });
   }
 
-  closeMap = () => {
-    this.setState({ users: [] });
-  };
-
   //get current geolocation
-
   getCurrentPosition = async () => {
     if (navigator.geolocation) {
       await navigator.geolocation.getCurrentPosition(position => {
-        this.currentPos = position;
-        console.log(
-          '*************',
-          this.currentPos.coords,
-          '******************'
-        );
-        this.getCloseUsers(position);
+        if (position) {
+          this.currentPos = position;
+          this.getCloseUsers(position);
+        }
       });
     } else console.log('Geolocation unavailable in your browser');
     return;
@@ -157,6 +149,7 @@ class App extends Component {
                         getCloseUsers={this.getCloseUsers}
                       />
                       <Interaction
+                        checkMessageBox={this.checkMessageBox}
                         curUser={this.props.store.currentUser.username}
                         users={this.props.store.users}
                       />
